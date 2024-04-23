@@ -7,10 +7,10 @@ from groq_translation import groq_translate
 from gtts import gTTS
 
 # Set page config
-st.set_page_config(page_title='Groq Translator', page_icon='🎤')
+st.set_page_config(page_title='BABEL 24 - Real Time Speech Translator', page_icon='🎤')
 
 # Set page title
-st.title('Groq Translator')
+st.title('BABEL 24 - Real Time Speech Translator')
 
 # Load whisper model
 model = WhisperModel("base", device="cpu", compute_type="int8", cpu_threads=int(os.cpu_count() / 2))
