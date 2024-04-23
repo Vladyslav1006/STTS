@@ -30,16 +30,16 @@ def text_to_speech(translated_text, language):
     return file_name
 
 languages = {
-   "Portuguese": "pt",
-   "Spanish": "es",
+#    "Portuguese": "pt",
+#    "Spanish": "es",
    "German": "de",
-   "French": "fr",
+#    "French": "fr",
    "Italian": "it",
-   "Dutch": "nl",
-   "Russian": "ru",
+#    "Dutch": "nl",
+#    "Russian": "ru",
    "Japanese": "ja",
    "Chinese": "zh",
-   "Korean": "ko"
+#    "Korean": "ko"
 }
 
 # Language selection
