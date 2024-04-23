@@ -13,8 +13,8 @@ st.set_page_config(page_title='Groq Translator', page_icon='🎤')
 st.title('Groq Translator')
 
 # Load whisper model
-# model = WhisperModel("base", device="cpu", compute_type="int8", cpu_threads=int(os.cpu_count() / 2))
-model = WhisperModel("base", device="cuda")
+model = WhisperModel("base", device="cpu", compute_type="int8", cpu_threads=int(os.cpu_count() / 2))
+# model = WhisperModel("base", device="cuda")
 
 # Speech to text
 def speech_to_text(audio_chunk):
