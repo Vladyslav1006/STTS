@@ -1,0 +1,1 @@
+streamlit run main.py & npx localtunnel --port 8501 & curl ipv4.icanhazip.com

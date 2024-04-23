@@ -7,14 +7,15 @@ from groq_translation import groq_translate
 from gtts import gTTS
 
 # Set page config
-st.set_page_config(page_title='BABEL 24 - Real Time Speech Translator', page_icon='🎤')
+st.set_page_config(page_title='BABEL 24 - RT Speech Translator', page_icon='🎤')
 
 # Set page title
-st.title('BABEL 24 - Real Time Speech Translator')
+st.title('BABEL 24 - RT Speech Translator')
 
 # Load whisper model
 model = WhisperModel("base", device="cpu", compute_type="int8", cpu_threads=int(os.cpu_count() / 2))
 # model = WhisperModel("base", device="cuda")
+
 
 # Speech to text
 def speech_to_text(audio_chunk):
@@ -30,31 +31,32 @@ def text_to_speech(translated_text, language):
     return file_name
 
 languages = {
-#    "Portuguese": "pt",
-#    "Spanish": "es",
+    "English": "en", 
    "German": "de",
-#    "French": "fr",
    "Italian": "it",
-#    "Dutch": "nl",
-#    "Russian": "ru",
    "Japanese": "ja",
    "Chinese": "zh",
-#    "Korean": "ko"
 }
 
-# Language selection
-option = st.selectbox(
-   "Language to translate to:",
-   #("Portuguese", "Spanish", "German", "French", "Italian", "Dutch", "Russian", "Japanese", "Chinese", "Korean"),
-   #{"Portuguese": "pt", "Spanish": "es", "German": "de", "French": "fr", "Italian": "it", "Dutch": "nl", "Russian": "ru", "Japanese": "ja", "Chinese": "zh", "Korean": "ko"},
+# Language selection for input
+input_language = st.selectbox(
+   "Language of the input speech:",
    languages,
-   index=None,
-   placeholder="Select language...",
+   placeholder="Select input language...",
 )
+
+# Language selection for translation
+target_language = st.selectbox(
+   "Language to translate to:",
+   languages,
+   placeholder="Select target language...",
+)
+
+
 
 # Record audio
 audio_bytes = audio_recorder()
-if audio_bytes and option:
+if audio_bytes and target_language and input_language:
     # Display audio player
     st.audio(audio_bytes, format="audio/wav")
 
@@ -72,10 +74,10 @@ if audio_bytes and option:
     # Groq translation
     st.divider()
     with st.spinner('Translating...'):
-        translation = groq_translate(text, 'en', option)
-    st.subheader('Translated Text to ' + option)
+        translation = groq_translate(text, languages[input_language], target_language)
+    st.subheader(f'Translated Text to {target_language}')
     st.write(translation.text)
 
     # Text to speech
-    audio_file = text_to_speech(translation.text, languages[option])
+    audio_file = text_to_speech(translation.text, languages[target_language])
     st.audio(audio_file, format="audio/mp3")
